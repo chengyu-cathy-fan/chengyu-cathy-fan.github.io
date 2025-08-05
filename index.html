@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cathy Fan</title>
+  <link rel="icon" href="assets/favicon_optimized.png" type="image/png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="announcement-banner">
+    🎓 I'm currently seeking a PhD position for Fall 2026. <a href="#about">Learn more about me →</a>
+    </div>
+  <header>
+    <div class="container">
+      <img src="profile.jpg" alt="Profile Photo" class="profile-photo" />
+      <h1>Cathy Fan</h1>
+      <p class="subtitle">Devoted in technology and human progress</p>
+
+      <button class="cv-button" onclick="openModal()">Show CV</button>
+
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#publications">Publications</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="about">
+        <h2>About Me</h2>
+        <p style="margin-bottom: 1.5em;">
+        I'm Chengyu Fan (go by "Cathy"), a senior undergraduate student at Colby College majoring in Computer Science (AI concentration) and Mathematical Sciences, with a minor in Statistics. My research lies at the intersection of artificial intelligence, multimodal interaction, and large language models.
+        </p>
+        <p style="margin-bottom: 1.5em;">
+        I've conducted research across a range of topics including multimodal coordination, LLM-based agent simulation, and pose estimation. My work has been published at ACM ICMI and ACM UMAP, and has involved close interdisciplinary collaboration between computer science and psychology.
+        </p>
+        <p style="margin-bottom: 1.5em;">
+        I'm especially passionate about building intelligent systems that engage with human behavior in socially responsible and interpretable ways. I enjoy working with multi-agent simulations, generative models, and applied machine learning pipelines — always with an eye toward ethical deployment.
+        </p>
+        <p style="margin-bottom: 1.5em;">
+        I'm currently seeking a PhD position starting in Fall 2026, where I hope to deepen my research in responsible AI, agent modeling, and multimodal interaction.  If you are a faculty member, or know of an open position in a lab, I would love to connect.
+        </p>
+     
+    </section>
+
+    <section id="research">
+    <h2>Research</h2>
+    <ul>
+        <li style="margin-bottom: 1.5em;"><strong>Multimodal Human Coordination</strong>: I co-authored a study on quantifying human movement coordination through multimodal alignment techniques. This research, combining computer science and psychology, was published at <em>ACM ICMI 2024</em>.</li>
+
+        <li style="margin-bottom: 1.5em;"><strong>LLM-Based Agent Simulation</strong>: At Colby's Davis Institute for AI, I helped build a persistent multi-agent simulation platform (Comp-HuSim) using large language models to simulate digital personalities. This work was published at <em>ACM UMAP 2024</em>.</li>
+
+        <li style="margin-bottom: 1.5em;"><strong>Pose Estimation and Responsible AI</strong>: I'm currently working on integrating pose estimation techniques with ethical AI principles as part of an ongoing research project in Colby's HUMANE Lab.</li>
+
+        <li style="margin-bottom: 1.5em;"><strong>AI for Environmental Sustainability</strong>: I developed a drone image dataset and trained a computer vision model to detect coastal litter in Maine, achieving ~92% accuracy and supporting local recycling efforts.</li>
+    </ul>
+    </section>
+
+    <section id="publications">
+  <h2>Publications</h2>
+
+  <div class="publication-entry">
+    <div class="pub-meta">
+      <p class="pub-authors"><strong>Fan, C.</strong>, Romero, V., Paxton, A., & Chowdhury, T.</p>
+      <p class="pub-title">
+        <a href="https://doi.org/10.1145/3686215.3690149" target="_blank">
+          Towards Multimodality: Comparing Quantifications of Movement Coordination
+        </a>
+      </p>
+      <p class="pub-venue"><em>ACM ICMI '24</em></p>
+    </div>
+  </div>
+
+  <div class="publication-entry">
+    <div class="pub-meta">
+      <p class="pub-authors"><strong>Fan, C.</strong>, Tariq, Z., Bhuiyan, N. S., Yankoski, M. G., & Ford, T. W.</p>
+      <p class="pub-title">
+        <a href="https://doi.org/10.1145/3631700.3664883" target="_blank">
+          Comp-HuSim: Persistent Digital Personality Simulation Platform
+        </a>
+      </p>
+      <p class="pub-venue"><em>ACM UMAP '24</em></p>
+    </div>
+  </div>
+
+</section>
+
+    
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Cathy Fan</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" title="Back to Top">↑</button>
+
+  <!-- CV Modal -->
+  <div id="cvModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3>CV Access</h3>
+        <p class="prompt">Unscramble the word: YMNOEK</p>
+        <input type="text" id="cvAnswer" placeholder="Enter your answer" />
+        <button class="cv-submit" onclick="checkCVAnswer()">Submit</button>
+        <p id="cvError" style="color: red; display: none; margin-top: 15px;">Try again! Hint: An animal</p>
+        <p id="cvSuccess" style="color: green; display: none; margin-top: 15px;">Genius!</p>
+
+        <div id="cvLink" style="display: none; margin-top: 15px;">
+        <a href="CathyFan_CV.pdf" class="cv-button" download>Download CV</a>
+        </div>
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const sections = document.querySelectorAll("main section");
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.5 });
+
+      sections.forEach(section => observer.observe(section));
+    });
+
+    function openModal() {
+        document.getElementById('cvModal').style.display = 'block';
+
+        const unlocked = sessionStorage.getItem("cvUnlocked") === "true";
+
+        if (unlocked) {
+            // Show CV directly
+            document.getElementById("cvLink").style.display = "block";
+            document.getElementById("cvSuccess").style.display = "block";
+            document.querySelector(".cv-submit").style.display = "none";
+            document.getElementById("cvAnswer").style.display = "none";
+            document.getElementById("cvError").style.display = "none";
+        } else {
+            // Show puzzle again
+            document.getElementById("cvAnswer").value = '';
+            document.getElementById("cvError").style.display = "none";
+            document.getElementById("cvSuccess").style.display = "none";
+            document.getElementById("cvLink").style.display = "none";
+            document.querySelector(".cv-submit").style.display = "inline-block";
+            document.getElementById("cvAnswer").style.display = "inline-block";
+        }
+        }
+
+
+    function closeModal() {
+      document.getElementById('cvModal').style.display = 'none';
+    }
+
+    function checkCVAnswer() {
+        const answer = document.getElementById("cvAnswer").value.trim().toLowerCase();
+
+        if (answer === "monkey") {
+            sessionStorage.setItem("cvUnlocked", "true");
+
+            document.getElementById("cvLink").style.display = "block";
+            document.getElementById("cvError").style.display = "none";
+            document.getElementById("cvSuccess").style.display = "block";
+            document.querySelector(".cv-submit").style.display = "none";
+            document.getElementById("cvAnswer").style.display = "none";
+        } else {
+            document.getElementById("cvError").style.display = "block";
+            document.getElementById("cvLink").style.display = "none";
+            document.getElementById("cvSuccess").style.display = "none";
+        }
+    }
+
+
+    // Close modal on outside click
+    window.onclick = function(event) {
+      const modal = document.getElementById('cvModal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+    // Back to Top Button
+    const backToTop = document.getElementById("backToTop");
+    window.onscroll = function () {
+      backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+    };
+
+    backToTop.onclick = function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  </script>
+
+</body>
+</html>
