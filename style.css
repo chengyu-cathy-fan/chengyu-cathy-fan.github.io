@@ -5,6 +5,15 @@
   box-sizing: border-box;
 }
 
+
+.prof-link {
+  text-decoration: underline dotted;  /* or none */
+}
+
+p {
+    line-height: 1.5; /* increases line spacing */
+}
+
 html, body {
   scroll-behavior: smooth;
   font-family: "Segoe UI", Roboto, sans-serif;
@@ -15,7 +24,7 @@ html, body {
 
 .announcement-banner {
   background-color: #e6f4fb; /* soft light blue */
-  color: #3E88EF;            /* deep blue text */
+  color: #1D63DC;            /* deep blue text */
   text-align: center;
   padding: 12px 20px;
   font-size: 1em;
@@ -25,7 +34,7 @@ html, body {
 }
 
 .announcement-banner a {
-  color: #3E88EF;
+  color: #1D63DC;
   text-decoration: underline;
   margin-left: 8px;
 }
@@ -239,15 +248,15 @@ footer {
 }
 
 .publication-entry {
-  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .pub-meta {
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .pub-title a {
-  color: #3E88EF;
+  color: #1D63DC;
   text-decoration: none;
   font-weight: 500;
 }
