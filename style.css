@@ -1,4 +1,22 @@
 /* Filename: style.css */
+
+/* Mobile-friendly Research section */
+@media screen and (max-width: 600px) {
+  #research > div {
+    flex-direction: column !important; /* Stack cards vertically */
+  }
+
+  #research img,
+  #research video {
+    width: 100%;
+    min-width: 0 !important;
+  }
+
+  #research div[style*="min-width"] {
+    min-width: 0 !important;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
