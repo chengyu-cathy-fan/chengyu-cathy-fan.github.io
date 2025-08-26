@@ -175,18 +175,20 @@
   <!-- CV Modal -->
   <div id="cvModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h3>CV Access</h3>
-        <p class="prompt">Unscramble the word: YMNOEK</p>
-        <input type="text" id="cvAnswer" placeholder="Enter your answer" />
-        <button class="cv-submit" onclick="checkCVAnswer()">Submit</button>
-        <p id="cvError" style="color: red; display: none; margin-top: 15px;">Try again! Hint: An animal</p>
-        <p id="cvSuccess" style="color: green; display: none; margin-top: 15px;">Genius!</p>
+      <span class="close" id="cvClose">&times;</span>
+      <h3>CV Access</h3>
+      <p class="prompt">Unscramble the word: YMNOEK</p>
+      <p class="note" style="font-size: 0.85em; color: #666; margin-top: 10px;">
+      Note: Your answer is <strong>not</strong> case-sensitive. If you prefer, you can <a href="protected/Cathy_CV_2508.pdf" target="_blank">skip the puzzle</a> and view the CV directly.
+      </p>
+      <input type="text" id="cvAnswer" placeholder="Enter your answer" />
+      <button class="cv-submit" onclick="checkCVAnswer()">Submit</button>
+      <p id="cvError" style="color: red; display: none; margin-top: 15px;">Try again! Hint: An animal</p>
+      <p id="cvSuccess" style="color: green; display: none; margin-top: 15px;">Genius!</p>
 
-        <div id="cvLink" style="display: none; margin-top: 15px;">
-        <a href="CathyFan_CV.pdf" class="cv-button" download>Download CV</a>
-        </div>
-
+      <div id="cvLink" style="display: none; margin-top: 15px;">
+        <a href="protected/Cathy_CV_2508.pdf" class="cv-button" target="_blank">View CV</a>
+      </div>
     </div>
   </div>
 
@@ -205,53 +207,71 @@
       sections.forEach(section => observer.observe(section));
     });
 
+    const wordPool = [
+    { scrambled: "YMNOEK", answer: "monkey", hint: "An animal" },
+    { scrambled: "RLEPA", answer: "pearl", hint: "Found in oysters" },
+    { scrambled: "LPEAP", answer: "apple", hint: "A fruit" },
+    { scrambled: "RFUOL", answer: "flour", hint: "Used to make bread" },
+    { scrambled: "AAANBN", answer: "banana", hint: "A fruit" },
+    ];
+
+    let currentWord = {};
+
+    function getRandomWord() {
+      const index = Math.floor(Math.random() * wordPool.length);
+      return wordPool[index];
+    }
+
     function openModal() {
-        document.getElementById('cvModal').style.display = 'block';
+      document.getElementById('cvModal').style.display = 'block';
+      const unlocked = sessionStorage.getItem("cvUnlocked") === "true";
 
-        const unlocked = sessionStorage.getItem("cvUnlocked") === "true";
-
-        if (unlocked) {
-            // Show CV directly
-            document.getElementById("cvLink").style.display = "block";
-            document.getElementById("cvSuccess").style.display = "block";
-            document.querySelector(".cv-submit").style.display = "none";
-            document.getElementById("cvAnswer").style.display = "none";
-            document.getElementById("cvError").style.display = "none";
-        } else {
-            // Show puzzle again
-            document.getElementById("cvAnswer").value = '';
-            document.getElementById("cvError").style.display = "none";
-            document.getElementById("cvSuccess").style.display = "none";
-            document.getElementById("cvLink").style.display = "none";
-            document.querySelector(".cv-submit").style.display = "inline-block";
-            document.getElementById("cvAnswer").style.display = "inline-block";
-        }
-        }
-
-
-    function closeModal() {
-      document.getElementById('cvModal').style.display = 'none';
+      if (unlocked) {
+        // Show CV directly
+        document.getElementById("cvLink").style.display = "block";
+        document.getElementById("cvSuccess").style.display = "block";
+        document.querySelector(".cv-submit").style.display = "none";
+        document.getElementById("cvAnswer").style.display = "none";
+        document.getElementById("cvError").style.display = "none";
+      } else {
+        // Pick a new random word
+        currentWord = getRandomWord();
+        document.querySelector(".prompt").textContent = `Unscramble the word: ${currentWord.scrambled}`;
+        document.getElementById("cvAnswer").value = '';
+        document.getElementById("cvError").style.display = "none";
+        document.getElementById("cvSuccess").style.display = "none";
+        document.getElementById("cvLink").style.display = "none";
+        document.querySelector(".cv-submit").style.display = "inline-block";
+        document.getElementById("cvAnswer").style.display = "inline-block";
+      }
     }
 
     function checkCVAnswer() {
-        const answer = document.getElementById("cvAnswer").value.trim().toLowerCase();
+      const answer = document.getElementById("cvAnswer").value.trim().toLowerCase();
 
-        if (answer === "monkey") {
-            sessionStorage.setItem("cvUnlocked", "true");
+      if (answer === currentWord.answer.toLowerCase()) {
+        sessionStorage.setItem("cvUnlocked", "true");
 
-            document.getElementById("cvLink").style.display = "block";
-            document.getElementById("cvError").style.display = "none";
-            document.getElementById("cvSuccess").style.display = "block";
-            document.querySelector(".cv-submit").style.display = "none";
-            document.getElementById("cvAnswer").style.display = "none";
-        } else {
-            document.getElementById("cvError").style.display = "block";
-            document.getElementById("cvLink").style.display = "none";
-            document.getElementById("cvSuccess").style.display = "none";
-        }
+        document.getElementById("cvLink").style.display = "block";
+        document.getElementById("cvError").style.display = "none";
+        document.getElementById("cvSuccess").style.display = "block";
+        document.querySelector(".cv-submit").style.display = "none";
+        document.getElementById("cvAnswer").style.display = "none";
+      } else {
+        document.getElementById("cvError").textContent = `Try again! Hint: ${currentWord.hint}`;
+        document.getElementById("cvError").style.display = "block";
+        document.getElementById("cvLink").style.display = "none";
+        document.getElementById("cvSuccess").style.display = "none";
+      }
+    }
+    
+    function closeModal() {
+    document.getElementById('cvModal').style.display = 'none';
     }
 
-
+    // Close modal via x button
+    document.getElementById('cvClose').addEventListener('click', closeModal);
+    
     // Close modal on outside click
     window.onclick = function(event) {
       const modal = document.getElementById('cvModal');
