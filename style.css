@@ -1,22 +1,5 @@
 /* Filename: style.css */
 
-/* Mobile-friendly Research section */
-@media screen and (max-width: 600px) {
-  #research > div {
-    flex-direction: column !important; /* Stack cards vertically */
-  }
-
-  #research img,
-  #research video {
-    width: 100%;
-    min-width: 0 !important;
-  }
-
-  #research div[style*="min-width"] {
-    min-width: 0 !important;
-  }
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -238,6 +221,52 @@ footer {
 #backToTop:hover {
   background-color: #3E88EF;
 }
+/* Research Section Styles */
+.research-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  max-width: 900px;
+  margin: auto;
+}
+
+.research-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  align-items: center;
+}
+
+.research-media {
+  flex: 1;
+  min-width: 250px;
+}
+
+.research-media img,
+.research-media video {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.research-text {
+  flex: 2;
+  min-width: 280px;
+}
+
+/* Mobile-Friendly Adjustments */
+@media screen and (max-width: 600px) {
+  .research-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .research-media,
+  .research-text {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
 
 /* Responsive */
 @media (max-width: 768px) {
