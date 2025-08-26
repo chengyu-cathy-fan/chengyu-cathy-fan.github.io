@@ -275,6 +275,14 @@ footer {
     gap: 15px;
   }
 
+@media screen and (max-width: 768px) {
+  main section {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+
   .container {
     padding: 30px 16px;
   }
